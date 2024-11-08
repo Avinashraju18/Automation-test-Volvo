@@ -1,5 +1,10 @@
-    const environment=require("./local/env")
-    const {args} = require("./test/utils/args-helper");
+// config/wdio.conf.js
+const { join } = require('path');
+const fs = require('fs');
+const environment = require('./local/env');
+const { args } = require('../test/utils/args-helper.js'); // Ensure this import is correct
+
+
     exports.config = {
         //
         // ====================
@@ -8,8 +13,10 @@
         // WebdriverIO supports running e2e tests as well as unit and component tests.
         runner: 'local',
         
+        
         specs: [
-            './test/specs/**/*.js'
+            
+        "./test/specs/**/*.js"
         ],
         suites:{
             stable:[

@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Automation testing for volvo homepage",
   "main": "index.js",
+ 
   "scripts": {
     "test:Homepage": "npm i && wdio run config/local/local.browser.conf.js landscape=devVolvo --spec test/specs/test.e2e.spec.js",
     "test:Homepagetest": "npm i && wdio run config/local/local.browser.conf.js landscape=testVolvo --spec test/specs/test.e2e.spec.js"
-  },
+},
+
+
   "keywords": [
     "webdriverio",
     "test",

@@ -1,48 +1,95 @@
-const { expect } = require('@wdio/globals');
-const Homepage = require('../pageobjects/Homepage');
+const { expect } = require('@wdio/globals'); // Importing WebDriverIO assertion library
+const Homepage = require('../pageobjects/Homepage'); // Import the Homepage page object
+const { clickElement, getTextFromElement, isElementEnabled } = require('../utils'); // Import reusable utility functions
 
 describe('Volvo Cars Home Page', () => {
-    //const userId = ""; 
-    
+    // This block runs before each test case
     beforeEach(async () => {
-        await browser.maximizeWindow(); 
+        // Maximize the browser window before every test to ensure all elements are fully visible
+        await browser.maximizeWindow();
     });
 
+    /**
+     * Test Case 1 - Fetch Data and Verify it
+     */
     it('01 - Fetch the data, verify and print', async () => {
         try {
-            // Wait to ensure page elements are loaded (optional, depending on your timing needs)
-            await browser.pause(1000); 
+            // Optional pause to ensure the page and elements are fully loaded
+            await browser.pause(1000);
 
-            // Clicking on 'Our Cars' link or button
-            const clickCars = await Homepage.ourCars();
-            await clickCars.click(); 
+            // Click on 'Our Cars' link by calling the reusable click method from Homepage page object
+            await Homepage.clickOurCarsLabel();
 
-            // Fetch the text to verify it matches 'SUVs' 
-            const text = await Homepage.sedanText(); 
-            console.log('Text displayed:', text); 
+            // Fetch the sedan text from the 'Sedan Text' element and verify it
+            const text = await Homepage.getSedanText();
+            console.log('Text displayed:', text); // Output the text for debugging or reporting
 
-            // Verify that the text matches the expected value
-            expect(text).toEqual('SUVs'); 
+            // Assert that the fetched text matches the expected value ('SUVs')
+            expect(text).toEqual('SUVs');
         } catch (error) {
-            console.error('Error fetching data:', error); 
+            // Catch and log any error that occurs during the execution of the test
+            console.error('Error fetching data:', error);
         }
     });
 
-    it('should verify the homepage visual appearance', async () => {
-        const homepage = await $('body');
-        await browser.assertView(homepage, 'homepage'); // Compare the current screenshot with the baseline image
+    /**
+     * Test Case 2 - Verify Scroll Button is Disabled After Clicking the Volvo Logo
+     */
+    it('02 - Click on Volvo logo and verify scroll button is disabled', async () => {
+        try {
+            // Click on the Volvo logo by calling the click method from Homepage page object
+            await Homepage.clickVolvoBtn();
+
+            // Verify that the scroll button is disabled by checking its enabled status
+            const isDisabled = await Homepage.isScrollBtnEnabled();
+
+            // Assert that the scroll button is disabled (i.e., it should not be interactable)
+            expect(isDisabled).toBe(false); // The button should be disabled (non-interactable)
+        } catch (error) {
+            // Catch and log any error that occurs during the execution of the test
+            console.error('Error verifying scroll button:', error);
+        }
     });
-    
+
+    /**
+     * Test Case 3 - Fetch Data and Verify it for 'Shop' and 'Special Vehicles' Links
+     */
+    it('03 - Fetch the data, verify and print', async () => {
+        try {
+            // Optional pause to ensure page elements are loaded
+            await browser.pause(1000);
+
+            // Click on the 'Shop' link by calling the click method from the Homepage page object
+            await Homepage.clickShopLink();
+
+            // Click on the 'Special Vehicles' link by calling the click method from Homepage page object
+            await Homepage.clickSpecialVehiclesLink();
+
+            // Fetch the text for 'Special Vehicles' and verify it
+            const spText = await Homepage.getSpecialVehiclesText();
+            console.log('Text displayed:', spText); // Output the text for debugging or reporting
+
+            // Assert that the fetched text matches the expected value ('Special Vehicles by Volvo Cars')
+            expect(spText).toEqual('Special Vehicles by Volvo Cars');
+        } catch (error) {
+            // Catch and log any error that occurs during the execution of the test
+            console.error('Error fetching or verifying data:', error);
+        }
+    });
+
+    /**
+     * Test Case 4 - Visual Appearance Test (UI Consistency)
+     */
+    it('should verify the homepage visual appearance', async () => {
+        try {
+            // Select the body element of the page to take a screenshot
+            const homepage = await $('body');
+
+            // Use WebDriverIO's assertView method to compare the current screenshot with the baseline
+            await browser.assertView(homepage, 'homepage'); // This will compare and ensure the UI matches the baseline image
+        } catch (error) {
+            // Catch and log any error that occurs during the execution of the visual appearance test
+            console.error('Error taking visual screenshot:', error);
+        }
+    });
 });
- // it('should load the page and have the correct title', async () => {
-    //     const title = await browser.getTitle();
-    //     expect(title).toBe('A million more | Volvo Cars');
-    // });
-
-
-
-// it('should check if the main banner is displayed', async () => {
-//     const banner = await $('header');
-//     expect(await banner.isDisplayed()).toBe(true);
-// });
-
