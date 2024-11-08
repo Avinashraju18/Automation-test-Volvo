@@ -1,8 +1,8 @@
 // config/local/env.js
 module.exports = {
     baseUrl: {
-      devVolvo: 'https://dev.volvocars.com',
-      testVolvo: 'https://test.volvocars.com'
+      devVolvo: 'https://www.volvocars.com/intl/safety/highlights/',
+      testVolvo: 'https://www.volvocars.com/intl/safety/highlights/'
     }
   };
   
