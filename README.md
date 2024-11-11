@@ -17,23 +17,23 @@ The framework has been designed to provide a scalable and efficient way to autom
    
 The basic setup defines the overall test automation framework. This serves as the foundation for the logic, which is elaborated in the following sections.
 
-3. Spec File for Test Logic
+2. Spec File for Test Logic
    
 A specification (spec) file has been created to document the test logic and workflows. This file serves as a reference to understand the underlying test processes and can be used for troubleshooting or expanding test cases.
 
-5. POM (Page Object Model) File for Selectors
+3. POM (Page Object Model) File for Selectors
    
 A Page Object Model (POM) file has been created to store and manage all locators (selectors) used across the automation tests. This centralized approach helps improve the maintainability and scalability of the tests.
 
-7. Environment File for Test and Production URLs
+4. Environment File for Test and Production URLs
    
 An environment configuration file has been added to the project to define the URLs for both the test and production environments. This allows you to easily switch between different environments while running the tests.
 
-9. Local Browser Setup for Parallel Test Execution
+5. Local Browser Setup for Parallel Test Execution
    
 The framework supports parallel test execution through a local browser configuration. This allows tests to run concurrently, improving the efficiency and speed of test execution.
 
-10. Reporting with Allure
+6. Reporting with Allure
     
 The framework integrates Allure, an open-source reporting tool, to generate detailed and visually appealing test reports. These reports make it easy to track test execution results and analyze the performance of the tests.
 
